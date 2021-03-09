@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    return "App online"
 
 
 if __name__ == "__main__":
