@@ -10,10 +10,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "App online"
+    return "App online...."
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-    port=int(os.environ.get("PORT"))
+    port=int(os.environ.get("PORT")),
     debug=True)
+
