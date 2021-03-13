@@ -27,6 +27,74 @@ def index():
     return render_template("base.html")
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
+
+
+@app.route("/programs_list")
+def login():
+    # render list of program cards
+    return render_template("login.html")
+
+
+@app.route("/program/<program_id>")
+def program(program_id):
+    return render_template("program.html")
+    
+
+@app.route("/edit_list")
+def edit_list():
+    # render list o program names to edit
+    return render_template("edit_list.html")
+
+
+@app.route("/add_program")
+def add_program():
+    return render_template("add_program.html") 
+
+
+@app.route("/delete_program")
+def delete_program():
+    return render_template("edit_list.html") 
+
+
+@app.route("/edit_program")
+def edit_program():
+    # render list o program names to edit
+    return render_template("edit_program.html")
+
+
+@app.route("/add_exercise", methods=["GET", "POST"])
+def add_exercise():
+    return render_template("add_exercise.html") 
+
+
+@app.route("/delete_exercise")
+def delete_exercise():
+    return render_template("edit_program.html") 
+    
+
+@app.route("/edit_exercise", methods=["GET", "POST"])
+def login():
+    return render_template("edit_exercise.html")
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    return render_template("search.html")
+
+
+@app.route("/logout")
+def logout():
+    return render_template("login.html")
+
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
     port=int(os.environ.get("PORT")),
