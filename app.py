@@ -60,10 +60,18 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    print('register function initiate')
     if request.method == "POST":
+        print('request POST')
+
+        form_email = request.form.get("email")
+        print('form_email: ' + form_email)
+
         # Verify if email already exists
         user_found = mongo.db.users.find_one(
             {"email": request.form.get("email")})
+        
+        print('user found:' + user_found)
 
         if user_found:
             error_message = "Username already used!"
@@ -76,7 +84,11 @@ def register():
             "password": generate_password_hash(request.form.get("password"))
         }
 
+        print('register_user: ' + register_user)
+
         mongo.db.users.insert_one(register_user)
+
+        print('user registred')
 
         # Add user info into 'session' cookie and redirect to programs
         session["user"] = request.form.get("email")

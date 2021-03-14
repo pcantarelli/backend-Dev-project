@@ -34,8 +34,8 @@ body {
     min-height: 100vh;
 }
 
-.container h3,
-.container h5 {
+.container > h3,
+.container > h5 {
     color: var(--white);
     text-align: center;
     text-shadow: 1px 1px 20px #000;
@@ -52,17 +52,25 @@ body {
 }
 
 .btn {
-    background-color: transparent;
-    padding: 10px 35px;
+    padding: 0px 35px;
     color: #ffffff;
-    border: 1px solid #ffffff;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 20%;
+    background: rgb(255 245 245 / 10%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur(20.0px);
+    -webkit-backdrop-filter: blur(20.0px);
+    border: 1px solid rgb(255 255 255 / 61%);
+    height: 40px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-.btn:focus {
+.btn:focus, .btn:hover  {
     /* outline: ; arrumar */
+    background-color: var(--flickr-pink);
+    color: var(--white);
 }
 
 /* Navigation */
@@ -139,14 +147,13 @@ nav {
 }
 
 .slider-forms {
-    background-color: red;
-    /* trocar por imagens */
+    background-image: url('/static/images/pattern_bg.jpg');
     background-size: cover;
-    background-position: -160px center;
-    background-repeat: repeat-x;
-    flex: 0 0 700px;
-    max-width: 700px;
-    min-height: 480px;
+	/* background-position: -160px center; */
+	background-repeat: repeat-x;
+    flex: 0 0 750px;
+    max-width: 750px;
+    min-height: 520px;
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -170,13 +177,15 @@ nav {
     color: var(--black);
 }
 
+.left-area h5,
+.right-area h5 {
+    color: var(--white);
+    margin-bottom: 30px;
+}
+
 .forms {
     position: absolute;
-    background: rgb(255 245 245 / 10%);
-    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
-    border-right: 1px solid rgba(255, 255, 255, 0.10);
+    background-color: var(--white);
     height: 100%;
     width: 50%;
     right: 0;
@@ -201,11 +210,25 @@ nav {
     transition: all 0.5s ease-in-out;
 }
 
+.form-login h5,
+.form-register h5,
+.form-login label,
+.form-register label {
+    color: var(--black);
+}
+
 .hidden-form {
     max-height: 0;
     visibility: hidden;
     opacity: 0;
     overflow: hidden;
+}
+
+.btn-register, .btn-login {
+    background-color: rgb(58 12 163 / 71%);}
+
+.input-margim {
+    margin-bottom: 0px;
 }
 
 @media(max-width: 767px) {
