@@ -2,7 +2,7 @@
     --flickr-pink: #f72585ff;
     --byzantine: #b5179eff;
     --purple: #7209b7ff;
-    --purple-2: #560badff;
+    --purple-2: #560bad;
     --trypan-blue: #480ca8ff;
     --trypan-blue-2: #3a0ca3ff;
     --persian-blue: #3f37c9ff;
@@ -14,23 +14,58 @@
     --dark-grey: #201f21;
 }
 
-
-
-body {
-    background-color: var(--purple-2);
+* {
+    box-sizing: border-box;
+    margin: 0;
 }
 
+body {
+    background: radial-gradient(circle farthest-corner at 35% 120%, #7209b7ff, transparent 20%), radial-gradient(circle farthest-corner at 100% 140%, #b5179eff, transparent 50%), radial-gradient(ellipse farthest-corner at 100% -25%, #3f37c9ff, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #480ca8ff, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 0% 100%, #480ca8ff, transparent), linear-gradient(#b5179eff, #7209b7ff 40%, #560badff 50%, #560badff 70%, #3a0ca3ff 100%);
 
-/* Glassmorfism */
+    min-height: 100vh;
+}
 
-/* background: rgb(255 245 245 / 10%);
-box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-backdrop-filter: blur( 20.0px );
--webkit-backdrop-filter: blur( 20.0px );
-border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+/* Base */
+.container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container h3,
+.container h5 {
+    color: var(--white);
+    text-align: center;
+    text-shadow: 1px 1px 20px #000;
+}
+
+@media only screen and (max-width: 480px) {
+    .container h3 {
+        font-size: 2.4rem;
+    }
+
+    .container h5 {
+        font-size: 1.4rem;
+    }
+}
+
+.btn {
+    background-color: transparent;
+    padding: 10px 35px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+.btn:focus {
+    /* outline: ; arrumar */
+}
 
 /* Navigation */
-
 nav {
     background-color: var(--dark-grey);
 }
@@ -62,23 +97,24 @@ nav {
     background-color: rgb(255 255 255 / 10%);
 }
 
-.sidenav li > a {
+.sidenav li>a {
     color: var(--white);
     font-size: 20px;
 }
 
-.sidenav li > a > i {
+.sidenav li>a>i {
     margin-right: 0px;
     color: var(--white);
     width: 30px;
 }
 
-.sidenav > :last-child {
+.sidenav> :last-child {
     margin-top: auto;
     margin-bottom: 15px;
-  }
+}
 
-.fa-pen, .fa-door-open {
+.fa-pen,
+.fa-door-open {
     font-size: 17px;
 }
 
@@ -86,6 +122,114 @@ nav {
     font-size: 19px;
 }
 
+/* Index */
 
+.main-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
 
+@media only screen and (max-width: 480px) {
+    .main-card  {
+        margin-top: 30px;
+    }
+}
 
+.slider-forms {
+    background-color: red;
+    /* trocar por imagens */
+    background-size: cover;
+    background-position: -160px center;
+    background-repeat: repeat-x;
+    flex: 0 0 700px;
+    max-width: 700px;
+    min-height: 480px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+.slider-forms .slide-active {
+    background-position: 160px center;
+}
+
+.left-area,
+.right-area {
+    flex: 0 0 50%;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 0;
+    color: var(--black);
+}
+
+.forms {
+    position: absolute;
+    background: rgb(255 245 245 / 10%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur(20.0px);
+    -webkit-backdrop-filter: blur(20.0px);
+    border-right: 1px solid rgba(255, 255, 255, 0.10);
+    height: 100%;
+    width: 50%;
+    right: 0;
+    top: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.slide-active .forms {
+    right: 50%;
+}
+
+.forms h3 {
+    margin: 0 0 30px;
+}
+
+.form-login,
+.form-register {
+    transition: all 0.5s ease-in-out;
+}
+
+.hidden-form {
+    max-height: 0;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+}
+
+@media(max-width: 767px) {
+    .slider-forms {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 575px) {
+    .forms {
+        width: 100%;
+        position: relative;
+        right: auto;
+        top: auto;
+        height: auto;
+    }
+
+    .slider-forms,
+    .slide-active {
+        background-position: center;
+    }
+
+    .slide-active .forms {
+        right: auto;
+    }
+}

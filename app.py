@@ -16,83 +16,144 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# FIX
 @app.route("/")
 def index():
-    exercises = mongo.db.exercises.find()
-    # check if logged
-    # if not
-        # return render_template("login.html")
-    # if yes 
-        # return render_template("programs.html", exercises=exercises )
-    return render_template("base.html")
 
+    # if session["email"]:
+    #    user_found = mongo.db.users.find_one({"email": session["email"]})
+    #    username = user_found[username]
+    #    flash("Hey {}, welcome back!".format(user_found[username]))
+    #    return redirect(url_for("programs_list", username=session["user"]))
 
+    return render_template("index.html")
+
+# TEST
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "POST":
+        # Check if email exists in user db
+        user_found = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
+        
+        if user_found:
+            # Check password hashed
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                        session["email"] = request.form.get("email")
+                        flash("Hey {}, welcome back!".format(user_found[username]))
+                        return redirect(url_for(
+                            "programs_list", username=session["user"]))
+            else:
+                # Password incorrect
+                error_message = "Username and/or Password incorrect!"
+                return render_template("index.html", error_message=error_message)
+
+        else:
+            # If username don't exists
+            error_message = "Username and/or Password incorrect!"
+            return render_template("index.html", error_message=error_message)
+    else:
+        flash("Login Error!")
+        return render_template("index.html")
 
 
-@app.route("/programs_list")
-def login():
-    # render list of program cards
-    return render_template("login.html")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # Verify if email already exists
+        user_found = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
+
+        if user_found:
+            error_message = "Username already used!"
+            return render_template("index.html", error_message=error_message)
+
+        register_user = {
+            "username": request.form.get("username").lower(),
+            "email": request.form.get("email"),
+            "dob": request.form.get("dob"),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+
+        mongo.db.users.insert_one(register_user)
+
+        # Add user info into 'session' cookie and redirect to programs
+        session["user"] = request.form.get("email")
+        flash("Registration Successful!")
+        return redirect(url_for("programs_list", username=session["user"]))
+
+    else:
+        flash("Registration Error!")
+        return render_template("index.html")
 
 
-@app.route("/program/<program_id>")
-def program(program_id):
-    return render_template("program.html")
-    
-
-@app.route("/edit_list")
-def edit_list():
-    # render list o program names to edit
-    return render_template("edit_list.html")
+# # TEST
+# @app.route("/programs_list")
+# def programs_list(username):
+#     username = mongo.db.users.find_one(
+#         {"username": session["user"]})["username"]
+#     # render list of program cards
+#     return render_template("programs_list.html", username=username)
 
 
-@app.route("/add_program")
-def add_program():
-    return render_template("add_program.html") 
+# @app.route("/program")
+# def program(program_id):
+#     return render_template("program.html")
+
+# # FIX
+# @app.route("/edit_list")
+# def edit_list():
+#     # render list o program names to edit
+#     return render_template("edit_list.html")
+
+# # FIX
+# @app.route("/add_program")
+# def add_program():
+#     return render_template("add_program.html")
+
+# # FIX
+# @app.route("/delete_program")
+# def delete_program():
+#     return render_template("programs_list.html")
 
 
-@app.route("/delete_program")
-def delete_program():
-    return render_template("edit_list.html") 
+# @app.route("/edit_program")
+# def edit_program():
+#     # render list o program names to edit
+#     return render_template("edit_program.html")
 
 
-@app.route("/edit_program")
-def edit_program():
-    # render list o program names to edit
-    return render_template("edit_program.html")
+# @app.route("/add_exercise", methods=["GET", "POST"])
+# def add_exercise():
+#     return render_template("add_exercise.html")
+
+# # FIX
+# @app.route("/delete_exercise")
+# def delete_exercise():
+#     return render_template("edit_program.html")
+
+# # FIX
+# @app.route("/edit_exercise", methods=["GET", "POST"])
+# def edit_exercise():
+#     return render_template("edit_exercise.html")
 
 
-@app.route("/add_exercise", methods=["GET", "POST"])
-def add_exercise():
-    return render_template("add_exercise.html") 
+# @app.route("/search", methods=["GET", "POST"])
+# def search():
+#     return render_template("search.html")
 
 
-@app.route("/delete_exercise")
-def delete_exercise():
-    return render_template("edit_program.html") 
-    
+# @app.route("/logout")
+# def logout():
+#     flash("Logged out successfully!")
+#     session.pop("user")
+#     return redirect(url_for("login"))
 
-@app.route("/edit_exercise", methods=["GET", "POST"])
-def login():
-    return render_template("edit_exercise.html")
-
-
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    return render_template("search.html")
-
-
-@app.route("/logout")
-def logout():
-    return render_template("login.html")
-
-
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+# # FIX
+# @app.route("/profile")
+# def profile():
+#     return render_template("profile.html")
 
 
 if __name__ == "__main__":
