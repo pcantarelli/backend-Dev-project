@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from app_functions import list_info, get_groups_list
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -127,9 +128,18 @@ def programs_list(username):
     exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
     print("exercises_list below")
     print(exercises_list)
+
+    exercises_info = list_info(exercises_list)
+    print("exercises_info below")
+    print(exercises_info)
+
+    groups_list = get_groups_list(exercises_list)
+    print("groups_list below")
+    print(groups_list)
+    
     if username:
         # render list of program cards
-        return render_template("programs_list.html", username=username)
+        return render_template("programs_list.html", username=username, exercises_list=exercises_list, exercises_info=exercises_info, groups_list=groups_list )
 
     return redirect(url_for("/"))
 

@@ -1,65 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="exercise-list">
+<h3>Welcome {{username.capitalize() }}</h3>
 
+<div class="program-status">
+    <h6>Currently, your program has:</h6>
+    <p>{{ exercises_info.num_excercises }} muscle groups</p>
+    <p>{{ exercises_info.num_group }} total exercises</p>
+    <p>{{ exercises_info.total_program_string }} duration</p>
+</div>
+
+
+{% if exercises_list|length > 0 %}
+<div class="exercise-list">
+    {% for group in groups_list %}
     <div class="group-list">
 
-        <h5 class="group-name">Shoulder</h5>
+        <h5 class="group-name">{{group}}</h5>
 
         <ul class="collapsible">
+
+            {% for exercise in exercises_list %}
+            {% if exercise.group_name ==  group %}
             <li>
-                <div class="collapsible-header z-depth-1">First</div>
+                <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}<i class="fas fa-chevron-circle-down"></i></div>
                 <div class="collapsible-body">
                     <div class="exercise-info">
-                        <div class="info-name">Weight: </div><span>15</span><span>kg</span>
+                        <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
                     </div>
                     <div class="exercise-info">
-                        <div class="info-name">Reps: </div>12</span>
+                        <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
                     </div>
                     <div class="exercise-info">
-                        <div class="info-name">Series: </div><span>3</span>
+                        <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
                     </div>
                     <div class="exercise-info">
-                        <div class="info-name">Interval: </div><span>45</span><span>s</span>
+                        <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
                     </div>
+                    {% if exercise.note %}
                     <div class="exercise-info">
-                        <div class="info-name" id="note">Note: </div>Lorem ipsum dolor sit, amet
-                        consectetur adipisicing elit.</span>
+                        <div class="info-name" id="note">Note: </div>{{ exercise.note }}</span>
                     </div>
+                    {% endif %}
                 </div>
             </li>
-            <li>
-                <div class="collapsible-header z-depth-1">Second</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-                <div class="collapsible-header z-depth-1">Third</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-        </ul>
-
-    </div>
-    <div class="group-list">
-        <h5 class="group-name">Shoulder</h5>
-
-        <ul class="collapsible">
-            <li>
-                <div class="collapsible-header">First</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-                <div class="collapsible-header">Second</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-                <div class="collapsible-header">Third</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
+            {% endif %}
+            {% endfor %}
         </ul>
     </div>
-
+    {% endfor %}
 </div>
+{% else %}
+<div class="no-exercises">
+    <h4>No exercises</h4>
+</div>
+<h3 class="red-text text-darken-4 center-align">No Results Found</h3>
+{% endif %}
 
 
 {% endblock %}
