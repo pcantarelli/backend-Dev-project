@@ -5,7 +5,7 @@
 <h5>You custom fitness program web app</h5>
 
 <div class="main-card">
-    <div class="slider-forms z-depth-2">
+    <div class="slider-forms z-depth-2 {% if error_register %} slide-active {% endif %}">
         <div class="left-area">
             <h5>Create your account</h5>
             <button class="btn btn-create">Register</button>
@@ -15,7 +15,7 @@
             <button class="btn btn-account">Sign in</button>
         </div>
         <div class="forms">
-            <div class="form-login">
+            <div class="form-login {% if error_register %} hidden-form {% endif %}">
                 <h5>Log In</h5>
                 <div class="row">
                     <form class="col s12" method="POST" action="{{ url_for('login') }}">
@@ -27,8 +27,8 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="login-password" type="password" class="validate">
-                                <label for="login-password">Password</label>
+                                <input id="lpassword" type="password" name="password" class="validate">
+                                <label for="lpassword">Password</label>
                             </div>
                         </div>
                         <div class="row">
@@ -38,10 +38,15 @@
                         </div>
                     </form>
                 </div>
+                {% if error_login %}
+                <div class="error-login">
+                    <p class="error-message">{{error_login}}</p>
+                </div>
+                {% endif %}
             </div>
-            <div class="form-register hidden-form">
+            <div class="form-register {% if error_register is defined %} {% else %} hidden-form {% endif %} ">
                 <h5>Register</h5>
-                <div class="row">
+                <div class="row form-margin">
                     <form class="col s12" method="POST" action="{{ url_for('register') }}">
                         <div class="row input-margim">
                             <div class="input-field col s12">
@@ -63,7 +68,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password" type="password" class="validate">
+                                <input id="password" name="password" type="password" class="validate">
                                 <label for="password">Password</label>
                             </div>
                         </div>
@@ -74,8 +79,13 @@
                         </div>
                     </form>
                 </div>
+                {% if error_register %}
+                <div class="error-register">
+                    <p class="error-message">{{error_register}}</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    {% endblock %}
+{% endblock %}

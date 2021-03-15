@@ -26,32 +26,37 @@
         <!-- Navigation - Materialize CSS Template-->
         <nav class="nav-extended">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center"><img class="nav-logo" src="static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a>
+                <a href="#!" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+                {% if session.user %}
                 <ul class="left hide-on-med-and-down">
-                    <li><a href="sass.html">Programs</a></li>
-                    <li><a href="badges.html">Editor</a></li>
-                    <li class="active"><a href="collapsible.html"></i>Search</a></li>
-                    <li><a href="badges.html">Profile</a></li>
+                    <li><a href="{{ url_for('programs_list', username=session['user']) }}">Programs</a></li>
+                    <li><a href="{{ url_for('editor', username=session['user']) }}">Editor</a></li>
+                    <li class="active"><a href="{{ url_for('search') }}"></i>Search</a></li>
+                    <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Logout</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+                {% endif %}
             </div>
         </nav>
 
+        {% if session.user %}
         <ul class="sidenav" id="mobile-demo">
             <li><a href="#!" class="brand-logo center"><img class="nav-logo logo-mobile" src="static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a></li>
             <li><div class="user-view">
-                <a href="#name"><span class="white-text name">John Doe</span></a>
-                <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                <span class="white-text name">John Doe</span>
+                <span class="white-text email">jdandturk@gmail.com</span>
               </div>
             </li>
-            <li><a href="sass.html"><i class="far fa-file-alt"></i>Programs</a></li>
-            <li><a href="badges.html"><i class="fas fa-pen"></i>Editor</a></li>
-            <li class="active"><a href="collapsible.html"><i class="fas fa-search"></i>Search</a></li>
-            <li><a href="badges.html"><i class="far fa-id-badge"></i>Profile</a></li>
-            <li><a href="mobile.html"><i class="fas fa-door-open"></i></i>Logout</a></li>
+            <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i class="far fa-file-alt"></i>Programs</a></li>
+            <li><a href="{{ url_for('editor', username=session['user']) }}"><i class="fas fa-pen"></i>Editor</a></li>
+            <li class="active"><a href="{{ url_for('search') }}"><i class="fas fa-search"></i>Search</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}"><i class="far fa-id-badge"></i>Profile</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i></i>Logout</a></li>
         </ul>
+        {% endif %}
 
     </header>
     <!-- Alert message -->

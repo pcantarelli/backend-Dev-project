@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -35,24 +36,28 @@ def login():
         # Check if email exists in user db
         user_found = mongo.db.users.find_one(
             {"email": request.form.get("email")})
-        
+
+        print("user_found:")
+        print(user_found)
+        print("password:")
+        print(request.form.get("password"))
         if user_found:
             # Check password hashed
-            if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
-                        session["email"] = request.form.get("email")
-                        flash("Hey {}, welcome back!".format(user_found[username]))
-                        return redirect(url_for(
-                            "programs_list", username=session["user"]))
+            if check_password_hash(user_found["password"], request.form.get("password")):
+                print("username found" + user_found["username"])
+                session["user"] = user_found["username"]
+                print(session["user"])
+                flash("Hey {}, welcome back!".format(user_found["username"].capitalize()))
+                return redirect(url_for("programs_list", username=session["user"]))
             else:
                 # Password incorrect
-                error_message = "Username and/or Password incorrect!"
-                return render_template("index.html", error_message=error_message)
+                error_login = "Username and/or Password incorrect!"
+                return render_template("index.html", error_login=error_login)
 
         else:
             # If username don't exists
-            error_message = "Username and/or Password incorrect!"
-            return render_template("index.html", error_message=error_message)
+            error_login = "Username and/or Password incorrect!"
+            return render_template("index.html", error_login=error_login)
     else:
         flash("Login Error!")
         return render_template("index.html")
@@ -66,32 +71,45 @@ def register():
 
         form_email = request.form.get("email")
         print('form_email: ' + form_email)
+        form_name = request.form.get("username")
+        print('form_name: ' + form_name)
 
         # Verify if email already exists
-        user_found = mongo.db.users.find_one(
-            {"email": request.form.get("email")})
-        
-        print('user found:' + user_found)
+        email_found = mongo.db.users.find_one({"email": request.form.get("email").lower()})
 
-        if user_found:
-            error_message = "Username already used!"
-            return render_template("index.html", error_message=error_message)
+           
+        if email_found:
+            print(email_found)
+            error_register = "Email already used!"
+            return render_template("index.html", error_register=error_register)
+        
+        name_found = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+
+        if name_found:
+            print(name_found)
+            error_register = "User name already used!"
+            return render_template("index.html", error_register=error_register)
+
+        print("user not found")
 
         register_user = {
             "username": request.form.get("username").lower(),
-            "email": request.form.get("email"),
+            "email": request.form.get("email").lower(),
             "dob": request.form.get("dob"),
             "password": generate_password_hash(request.form.get("password"))
         }
 
-        print('register_user: ' + register_user)
+        print("register user:")
+
+        print(register_user)
 
         mongo.db.users.insert_one(register_user)
 
         print('user registred')
 
         # Add user info into 'session' cookie and redirect to programs
-        session["user"] = request.form.get("email")
+        session["user"] = request.form.get("username").lower()
+        print(session["user"])
         flash("Registration Successful!")
         return redirect(url_for("programs_list", username=session["user"]))
 
@@ -100,24 +118,31 @@ def register():
         return render_template("index.html")
 
 
-# # TEST
-# @app.route("/programs_list")
-# def programs_list(username):
-#     username = mongo.db.users.find_one(
-#         {"username": session["user"]})["username"]
-#     # render list of program cards
-#     return render_template("programs_list.html", username=username)
+# TEST
+@app.route("/programs_list/<username>", methods=["GET", "POST"])
+def programs_list(username):
+    print('username: ' + username)
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    print('username: ' + username)
+    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    print("exercises_list below")
+    print(exercises_list)
+    if username:
+        # render list of program cards
+        return render_template("programs_list.html", username=username)
+
+    return redirect(url_for("/"))
 
 
 # @app.route("/program")
 # def program(program_id):
 #     return render_template("program.html")
 
-# # FIX
-# @app.route("/edit_list")
-# def edit_list():
-#     # render list o program names to edit
-#     return render_template("edit_list.html")
+# FIX
+@app.route("/editor")
+def editor():
+    # render list o program names to edit
+    return render_template("edit_list.html")
 
 # # FIX
 # @app.route("/add_program")
@@ -151,21 +176,21 @@ def register():
 #     return render_template("edit_exercise.html")
 
 
-# @app.route("/search", methods=["GET", "POST"])
-# def search():
-#     return render_template("search.html")
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    return render_template("search.html")
 
 
-# @app.route("/logout")
-# def logout():
-#     flash("Logged out successfully!")
-#     session.pop("user")
-#     return redirect(url_for("login"))
+@app.route("/logout")
+def logout():
+    flash("Logged out successfully!")
+    session.pop("user")
+    return redirect(url_for("index"))
 
-# # FIX
-# @app.route("/profile")
-# def profile():
-#     return render_template("profile.html")
+# FIX
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 
 if __name__ == "__main__":
