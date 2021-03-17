@@ -149,10 +149,28 @@ def programs_list(username):
 #     return render_template("program.html")
 
 # FIX
-@app.route("/editor")
+@app.route("/edit_program")
 def editor():
-    # render list o program names to edit
-    return render_template("edit_list.html")
+    print('session: ' + session["user"])
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    print('username: ' + username)
+    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    print("exercises_list below")
+    print(exercises_list)
+
+    exercises_info = list_info(exercises_list)
+    print("exercises_info below")
+    print(exercises_info)
+
+    groups_list = get_groups_list(exercises_list)
+    print("groups_list below")
+    print(groups_list)
+    
+    if username:
+        # render list of program cards
+        return render_template("edit_program.html", username=username, exercises_list=exercises_list, exercises_info=exercises_info, groups_list=groups_list )
+
+    return redirect(url_for("/"))
 
 # # FIX
 # @app.route("/add_program")
@@ -171,9 +189,9 @@ def editor():
 #     return render_template("edit_program.html")
 
 
-# @app.route("/add_exercise", methods=["GET", "POST"])
-# def add_exercise():
-#     return render_template("add_exercise.html")
+@app.route("/add_exercise", methods=["GET", "POST"])
+def add_exercise():
+    return render_template("add_exercise.html")
 
 # # FIX
 # @app.route("/delete_exercise")

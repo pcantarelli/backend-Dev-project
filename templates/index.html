@@ -21,13 +21,15 @@
                     <form class="col s12" method="POST" action="{{ url_for('login') }}">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="login-email" type="email" name="email" class="validate">
+                                <input id="login-email" type="email" name="email" class="validate" minlength="10" maxlength="30" 
+                                pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required>
                                 <label for="login-email">Email</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="lpassword" type="password" name="password" class="validate">
+                                <input id="lpassword" type="password" name="password" class="validate" minlength="8" maxlength="20"
+                                pattern="/^[a-zA-Z0-9:.,?!@]{3,15}[#$^]?$/" required>
                                 <label for="lpassword">Password</label>
                             </div>
                         </div>
@@ -50,25 +52,28 @@
                     <form class="col s12" method="POST" action="{{ url_for('register') }}">
                         <div class="row input-margim">
                             <div class="input-field col s12">
-                                <input id="username" name="username" type="text" class="validate">
+                                <input id="username" name="username" type="text" class="validate" minlength="3"
+                                maxlength="15" pattern="^[a-zA-Z0-9]{3,15}$" required>
                                 <label for="username">Name</label>
                             </div>
                         </div>
                         <div class="row input-margim">
                             <div class="input-field col s12">
-                                <input id="email" type="email" name="email" class="validate">
+                                <input id="email" type="email" name="email" class="validate" minlength="10" maxlength="50" 
+                                pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required>
                                 <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="row input-margim">
                             <div class="input-field col s12">
-                                <input id="dob" name="dob" type="text" class="datepicker validate">
+                                <input id="dob" name="dob" type="text" class="datepicker validate" required>
                                 <label for="dob">Date of Birthday</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password" name="password" type="password" class="validate">
+                                <input id="password" name="password" type="password" class="validate" minlength="8" maxlength="20"
+                                pattern="/^[a-zA-Z0-9:.,?!@]{3,15}[#$^]?$/" required>
                                 <label for="password">Password</label>
                             </div>
                         </div>

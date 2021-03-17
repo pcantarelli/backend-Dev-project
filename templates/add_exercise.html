@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Add Exercise</h3>
+
+    <form class="add-excerise__form" method="POST" action="{{ url_for('login') }}">
+        <div class="add-group">
+            <label for="group">Group</label>
+            <select name="group" id="group" class="validate" required>
+                <option value="" disabled selected>Choose a muscle group</option>
+                <option value="">Shoulder</option>
+            </select>
+        </div>
+        <div class="add-name">
+            <label for="exercise_name">Name</label>
+            <input placeholder="Exercise name here" type="text" name="exercise_name" id="exercise_name" minlength="3"
+            maxlength="15" pattern="^[a-zA-Z0-9]{3,15}$" class="validate" required>
+        </div>
+        <div class="add-info">
+            <input placeholder="add weight in kg" type="text" name="weight" id="weight" minlength="1" maxlength="6"
+            pattern="^[0-9]{1,2}([,.][0-9]{1,2})?$" class="validate" required>
+            <label for="weight" class="weight-label">weight:</label>
+            <input placeholder="number of repetitions" type="text" name="reps" id="reps" minlength="1" maxlength="6"
+            pattern="^[0-9]*$" class="validate" required>
+            <label for="reps">reps:</label>
+            <input placeholder="number of series" type="text" name="series" id="series" minlength="1" maxlength="6"
+            pattern="^[0-9]*$" class="validate" required>
+            <label for="series">series:</label>
+            <input placeholder="interval in seconds" type="text" name="interval" id="interval" minlength="1" maxlength="6"
+            pattern="^[0-9]*$" class="validate" required>
+            <label for="interval">interval:</label>
+            <textarea name="note" id="note" cols="30" rows="20" maxlength="500"></textarea>
+            <label for="note" class="note-label">note:</label>
+        </div>
+        <div class="add-buttons">
+            <button class="btn btn-cancel">Cancel</button>
+            <button class="btn btn-add">Add +</button>
+        </div>
+    </form>
+
+{% endblock %}
