@@ -258,9 +258,20 @@ def logout():
     return redirect(url_for("index"))
 
 # FIX
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    print("username:")
+    print(username)
+
+    user_data = mongo.db.users.find_one({"username": session["user"]})
+    print(" ")
+    print("user_data:")
+    print(user_data)
+
+    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    exercises_info = list_info(exercises_list)
+    
+    return render_template("profile.html", user=user_data, exercises_info=exercises_info)
 
 
 if __name__ == "__main__":

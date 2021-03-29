@@ -42,6 +42,11 @@ body {
     text-shadow: 1px 1px 20px #000;
 }
 
+.container > h6  {
+    line-height: 23px;
+}
+
+
 @media only screen and (max-width: 480px) {
     .container h3 {
         font-size: 2.4rem;
@@ -266,28 +271,6 @@ nav {
 }
 
 /* Programs */
-
-.program-status {
-    color:  var(--white);
-    padding: 13px 30px 20px;
-    background: rgb(255 245 245 / 10%);
-    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 15px;
-    width: 100%;
-    max-width: 320px;
-}
-
-.program-status h6 {
-    margin-bottom: 10px;
-}
-
-.program-status p {
-    margin-bottom: 2px;
-}
-
 
 .exercise-list {
     width: 100%;
@@ -515,3 +498,47 @@ li:last-child > .collapsible-header {
 }
 
 
+/* Profile */
+
+.profile-info {
+    width: 100%;
+    max-width: 320px;
+    margin: 30px;
+    color: var(--white);
+}
+
+.profile-info h6 {
+    margin: 20px 0 10px;
+}
+
+.user-info {
+    padding: 15px;
+    border-radius: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.program-status, .user-info {
+    color:  var(--white);
+    background: rgb(255 245 245 / 10%);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur(20.0px);
+    -webkit-backdrop-filter: blur(20.0px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    width: 100%;
+    max-width: 320px;
+}
+
+.program-status {
+    padding: 13px 30px 20px;
+    border-radius: 15px;
+}
+
+.program-status h6 {
+    margin-bottom: 10px;
+}
+
+.program-status p {
+    margin-bottom: 2px;
+}

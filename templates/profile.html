@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3>Profile</h3>
+
+<div class="profile-info">
+    <h6 class="profile-name">Name</h6>
+    <div class="user-name user-info">{{user.username.capitalize() }}</div>
+
+    <h6 class="profile-email">Email</h6>
+    <div class="user-email user-info">{{user.email}}</div>
+
+    <h6 class="profile-dob">Date of Birthday</h6>
+    <div class="user-dob user-info">{{user.dob}}</div>
+
+</div>
+
+<div class="program-status">
+    <h6>Currently, your program has:</h6>
+    <p>{{ exercises_info.num_excercises }} muscle groups</p>
+    <p>{{ exercises_info.num_group }} total exercises</p>
+    <p>{{ exercises_info.total_program_string }} duration</p>
+</div>
 
 {% endblock %}
