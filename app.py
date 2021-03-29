@@ -191,17 +191,59 @@ def editor():
 
 @app.route("/add_exercise", methods=["GET", "POST"])
 def add_exercise():
-    return render_template("add_exercise.html")
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
 
-# # FIX
-# @app.route("/delete_exercise")
-# def delete_exercise():
-#     return render_template("edit_program.html")
+    if request.method == "POST":
+        exercise = {
+            "group_name": request.form.get("group_name"),
+            "exercise_name": request.form.get("exercise_name"),
+            "weight": request.form.get("weight"),
+            "reps": request.form.get("reps"),
+            "series": request.form.get("series"),
+            "time_interval": request.form.get("time_interval"),
+            "created_by": username,
+            "note": request.form.get("note")
 
-# # FIX
-# @app.route("/edit_exercise", methods=["GET", "POST"])
-# def edit_exercise():
-#     return render_template("edit_exercise.html")
+        }
+        mongo.db.exercises.insert_one(exercise)
+        flash("Exercise Successfully Added")
+        return redirect(url_for("editor"))
+
+    return render_template("add_exercise.html", username=username)
+
+@app.route("/delete_exercise/<exercise_id>", methods=["GET", "POST"])
+def delete_exercise(exercise_id):
+    print('exercise id')
+    print(exercise_id)
+    mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    flash("Exercise Deleted")
+    return redirect(url_for("editor"))
+
+
+@app.route("/edit_exercise/<exercise_id>", methods=["GET", "POST"])
+def edit_exercise(exercise_id):
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+
+    if request.method == "POST":
+        exercise_updated = {
+            "group_name": request.form.get("group_name"),
+            "exercise_name": request.form.get("exercise_name"),
+            "weight": request.form.get("weight"),
+            "reps": request.form.get("reps"),
+            "series": request.form.get("series"),
+            "time_interval": request.form.get("time_interval"),
+            "created_by": username,
+            "note": request.form.get("note")
+        }
+        mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, exercise_updated)
+        flash("Exercise Updated")
+        return redirect(url_for("editor"))
+
+    exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    print('exercise found')
+    print(exercise)
+    return render_template("edit_exercise.html", exercise=exercise)
+
 
 
 @app.route("/search", methods=["GET", "POST"])

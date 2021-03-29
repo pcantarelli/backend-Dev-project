@@ -3,13 +3,11 @@
 
 <h3>Add Exercise</h3>
 
-    <form class="add-excerise__form" method="POST" action="{{ url_for('login') }}">
+    <form class="add-excerise__form" method="POST" action="{{ url_for('add_exercise') }}">
         <div class="add-group">
-            <label for="group">Group</label>
-            <select name="group" id="group" class="validate" required>
-                <option value="" disabled selected>Choose a muscle group</option>
-                <option value="">Shoulder</option>
-            </select>
+            <label for="group_name">Group</label>
+            <input placeholder="Muscle group" type="text" name="group_name" id="group_name" minlength="3"
+            maxlength="15" pattern="^[a-zA-Z0-9]{3,15}$" class="validate input-group" required>
         </div>
         <div class="add-name">
             <label for="exercise_name">Name</label>
@@ -26,14 +24,14 @@
             <input placeholder="number of series" type="text" name="series" id="series" minlength="1" maxlength="6"
             pattern="^[0-9]*$" class="validate" required>
             <label for="series">series:</label>
-            <input placeholder="interval in seconds" type="text" name="interval" id="interval" minlength="1" maxlength="6"
+            <input placeholder="interval in seconds" type="text" name="time_interval" id="time_interval" minlength="1" maxlength="6"
             pattern="^[0-9]*$" class="validate" required>
-            <label for="interval">interval:</label>
+            <label for="time_interval">interval:</label>
             <textarea name="note" id="note" cols="30" rows="20" maxlength="500"></textarea>
             <label for="note" class="note-label">note:</label>
         </div>
         <div class="add-buttons">
-            <button class="btn btn-cancel">Cancel</button>
+            <a href="{{ url_for('editor') }}" class="btn btn-cancel">Cancel</a>
             <button class="btn btn-add">Add +</button>
         </div>
     </form>

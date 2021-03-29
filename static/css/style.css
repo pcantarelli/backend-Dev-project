@@ -315,6 +315,11 @@ li:first-child > .collapsible-header {
     border-top-left-radius: 10px;
 }
 
+li:last-child > .collapsible-header {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
 .collapsible-body {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -365,11 +370,6 @@ li:first-child > .collapsible-header {
     text-shadow: 1px 1px var(--dark-grey);
     letter-spacing: 1px;
     text-transform: lowercase;
-}
-
-#note {
-    width: unset;
-    margin-right: 5px;
 }
 
 .exercise-info span{
@@ -458,16 +458,11 @@ li:first-child > .collapsible-header {
 }
 
 .add-group label {
-    padding: 0 15px 5px;
     display: block;
 }
 
-.add-group select {
-    padding: 15px;
-    height: 60px;
-    border-radius: 10px;
-    font-size: 1.6rem;
-    color: var(--white);
+.add-group input {
+    font-size: 1.6rem !important;
     text-shadow: 1px 1px var(--black);
 }
 

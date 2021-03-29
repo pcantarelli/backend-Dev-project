@@ -3,13 +3,7 @@
 
 <h3>Welcome {{username.capitalize() }}</h3>
 
-<div class="program-status">
-    <h6>Currently, your program has:</h6>
-    <p>{{ exercises_info.num_excercises }} muscle groups</p>
-    <p>{{ exercises_info.num_group }} total exercises</p>
-    <p>{{ exercises_info.total_program_string }} duration</p>
-</div>
-
+<p>The estimated duration of your program is {{ exercises_info.total_program_string }}. Have a good training!</p>
 
 {% if exercises_list|length > 0 %}
 <div class="exercise-list">
@@ -39,7 +33,7 @@
                     </div>
                     {% if exercise.note %}
                     <div class="exercise-info">
-                        <div class="info-name" id="note">Note: </div>{{ exercise.note }}</span>
+                        <div class="info-name">Note: </div>{{ exercise.note }}</span>
                     </div>
                     {% endif %}
                 </div>
