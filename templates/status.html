@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Application Status</h3>
+
+<div class="status-info">
+
+    <h4>Users: <span>{{ user_total }}</span></h4>
+
+    <div class="status-flex">
+        <h5>Exercises: <span>{{ exercises_total }}</span></h5>
+        <h5>Average exercise per user: <span>{{ (exercises_total / user_total) | round(1, 'floor') }}</span></h5>
+        <h5>Groups: <span>{{ groups_list|length }}</span></h5>
+        <h5>Average groups per user: <span>{{ (groups_list|length / user_total) | round(1, 'floor') }}</span></h5>
+    </div>
+
+    <h5>Groups list:</h5>
+    <ul>
+        {% for group in groups_list %}
+        <li>{{ group }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}

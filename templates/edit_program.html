@@ -21,7 +21,7 @@
             {% if exercise.group_name ==  group %}
             <li>
                 <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}
-                    <div><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}" class="btn btn-editor ">Delete</a><a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}" class="btn btn-editor ">Edit</a><i class="fas fa-chevron-circle-down"></i></div></div>
+                    <div><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}" class="btn btn-editor "><i class="fas fa-trash-alt"></i></a><a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}" class="btn btn-editor edit">Edit</a><i class="fas fa-chevron-circle-down"></i></div></div>
                 <div class="collapsible-body">
                     <div class="exercise-info">
                         <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
@@ -50,9 +50,8 @@
 </div>
 {% else %}
 <div class="no-exercises">
-    <h4>No exercises</h4>
+    <h4 class="red-text center-align">No exercises found</h4>
 </div>
-<h3 class="red-text text-darken-4 center-align">No Results Found</h3>
 {% endif %}
 
 

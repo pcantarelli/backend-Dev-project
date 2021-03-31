@@ -119,7 +119,6 @@ def register():
         return render_template("index.html")
 
 
-# TEST
 @app.route("/programs_list/<username>", methods=["GET", "POST"])
 def programs_list(username):
     print('username: ' + username)
@@ -143,12 +142,6 @@ def programs_list(username):
 
     return redirect(url_for("/"))
 
-
-# @app.route("/program")
-# def program(program_id):
-#     return render_template("program.html")
-
-# FIX
 @app.route("/edit_program")
 def editor():
     print('session: ' + session["user"])
@@ -171,23 +164,6 @@ def editor():
         return render_template("edit_program.html", username=username, exercises_list=exercises_list, exercises_info=exercises_info, groups_list=groups_list )
 
     return redirect(url_for("/"))
-
-# # FIX
-# @app.route("/add_program")
-# def add_program():
-#     return render_template("add_program.html")
-
-# # FIX
-# @app.route("/delete_program")
-# def delete_program():
-#     return render_template("programs_list.html")
-
-
-# @app.route("/edit_program")
-# def edit_program():
-#     # render list o program names to edit
-#     return render_template("edit_program.html")
-
 
 @app.route("/add_exercise", methods=["GET", "POST"])
 def add_exercise():
@@ -244,20 +220,13 @@ def edit_exercise(exercise_id):
     print(exercise)
     return render_template("edit_exercise.html", exercise=exercise)
 
-
-
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    return render_template("search.html")
-
-
 @app.route("/logout")
 def logout():
     flash("Logged out successfully!")
     session.pop("user")
     return redirect(url_for("index"))
 
-# FIX
+
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     print("username:")
@@ -272,6 +241,33 @@ def profile(username):
     exercises_info = list_info(exercises_list)
     
     return render_template("profile.html", user=user_data, exercises_info=exercises_info)
+
+
+@app.route("/status")
+def status():
+
+    user_list = list(mongo.db.users.find())
+    exercises_list = list(mongo.db.exercises.find())
+    exercises_total = len(exercises_list)
+    groups_list = get_groups_list(exercises_list)
+    user_total = len(user_list)
+
+    return render_template("status.html", user_total=user_total, exercises_total=exercises_total, groups_list=groups_list)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    print("query:")
+    print(query)
+    print(" ")
+
+    exercises_list = list(mongo.db.exercises.find({"$text": {"$search": query}}))
+    print("exercises_list:")
+    print(exercises_list)
+    groups_list = get_groups_list(exercises_list)
+
+    return render_template("search_results.html", exercises_list=exercises_list, groups_list=groups_list, query=query)
 
 
 if __name__ == "__main__":

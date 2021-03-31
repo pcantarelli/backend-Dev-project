@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3>Welcome {{username.capitalize() }}</h3>
+<h3>Search results for: {{ query }}</h3>
 
 {% if exercises_list|length > 0 %}
-<h6>The estimated duration of your program is {{ exercises_info.total_program_string }}. Have a good training!</h6>
 
 <div class="exercise-list">
     {% for group in groups_list %}
@@ -46,7 +45,7 @@
 </div>
 {% else %}
 <div class="no-exercises">
-    <h4 class="red-text center-align">No exercises found</h4>
+    <h4 class="red-text center-align">No exercises found with "{{ query }}"</h4>
 </div>
 {% endif %}
 

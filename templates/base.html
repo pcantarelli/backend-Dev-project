@@ -26,16 +26,27 @@
         <!-- Navigation - Materialize CSS Template-->
         <nav class="nav-extended">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a>
+                <a href="{{ url_for('programs_list', username=session['user']) }}" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg"
+                        alt="Fitnes Exercise Development Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 {% if session.user %}
                 <ul class="left hide-on-med-and-down">
                     <li><a href="{{ url_for('programs_list', username=session['user']) }}">Programs</a></li>
                     <li><a href="{{ url_for('editor', username=session['user']) }}">Editor</a></li>
-                    <li class="active"><a href="{{ url_for('search') }}"></i>Search</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
+                    {% if session.user|lower == "admin"|lower %}
+                    <li>
+                        <form class="search-form" method="POST" action="{{ url_for('search') }}">
+                            <div class="search-bg">
+                                <input type="text" name="query" id="query" minlength="3" required>
+                                <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                    <li><a href="{{ url_for('status') }}">App Status</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 </ul>
                 {% endif %}
@@ -44,16 +55,24 @@
 
         {% if session.user %}
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#!" class="brand-logo center"><img class="nav-logo logo-mobile" src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a></li>
-            <li><div class="user-view">
-                <span class="white-text name">John Doe</span>
-                <span class="white-text email">jdandturk@gmail.com</span>
-              </div>
-            </li>
-            <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i class="far fa-file-alt"></i>Programs</a></li>
+            <li><a href="{{ url_for('programs_list', username=session['user']) }}" class="brand-logo center"><img class="nav-logo logo-mobile"
+                        src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a></li>
+            <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i
+                        class="far fa-file-alt"></i>Programs</a></li>
             <li><a href="{{ url_for('editor', username=session['user']) }}"><i class="fas fa-pen"></i>Editor</a></li>
-            <li class="active"><a href="{{ url_for('search') }}"><i class="fas fa-search"></i>Search</a></li>
-            <li><a href="{{ url_for('profile', username=session['user']) }}"><i class="far fa-id-badge"></i>Profile</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}"><i class="far fa-id-badge"></i>Profile</a>
+            </li>
+            {% if session.user|lower == "admin"|lower %}
+            <li>
+                <form class="search-form" method="POST" action="{{ url_for('search') }}">
+                    <div class="search-bg">
+                        <input type="text" name="query" id="query" minlength="3" required>
+                        <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </li>
+            <li><a href="{{ url_for('status') }}">App Status</a></li>
+            {% endif %}
             <li><a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i></i>Logout</a></li>
         </ul>
         {% endif %}
@@ -67,6 +86,19 @@
         {% endblock %}
     </main>
 
+    <footer>
+        <div class="footer-items">
+            <div class="footer-info">
+                <p>© 2021, Fitness Exercise Development</p>
+                <p>Design by: Pedro Cantarelli</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -75,23 +107,23 @@
         integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
         crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    
+
     <!-- Flash messages -->
-        
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <script>
 
-                    let jsMessage = '{{ message }}';
-                    M.toast({html: jsMessage});
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        let jsMessage = '{{ message }}';
+        M.toast({
+            html: jsMessage
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-       
 </body>
 
 </html>
