@@ -283,7 +283,26 @@ def search():
     return render_template("search.html")
 
 
-#Haddling errors
+@app.route("/copy_exercise/<exercise_id>", methods=["GET", "POST"])
+def copy_exercise(exercise_id):
+    print('exercise id')
+    print(exercise_id)
+    exercise_found = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    print('exercise_found')
+    print(exercise_found)
+    username = session["user"]
+    exercise_found["created_by"] = username
+    exercise_found.pop('_id', None)
+
+    print('exercise_found changed')
+    print(exercise_found)
+    mongo.db.exercises.insert_one(exercise_found)
+
+    flash("Exercise Copied Successfully")
+    return redirect(url_for("programs_list", username=username))
+
+
+#Error Handlers
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
