@@ -42,24 +42,30 @@ def login():
         print(user_found)
         print("password:")
         print(request.form.get("password"))
+        print("password match?")
+        print(check_password_hash(user_found["password"], request.form.get("password")))
         if user_found:
             # Check password hashed
             if check_password_hash(user_found["password"], request.form.get("password")):
-                print("username found" + user_found["username"])
+                print("password matches")
+                print("username found: " + user_found["username"])
                 session["user"] = user_found["username"]
                 print(session["user"])
                 flash("Hey {}, welcome back!".format(user_found["username"].capitalize()))
                 return redirect(url_for("programs_list", username=session["user"]))
             else:
                 # Password incorrect
+                print("password don't match")
                 error_login = "Username and/or Password incorrect!"
                 return render_template("index.html", error_login=error_login)
 
         else:
             # If username don't exists
+            print("user not found")
             error_login = "Username and/or Password incorrect!"
             return render_template("index.html", error_login=error_login)
     else:
+        print("Resquest POST false")
         flash("Login Error!")
         return render_template("index.html")
 
@@ -273,5 +279,5 @@ def search():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
     port=int(os.environ.get("PORT")),
-    debug=True)
+    debug=True) # trocar para False
 
