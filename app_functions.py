@@ -1,4 +1,19 @@
 def list_info(exercise_list):
+    """Find user program info.
+
+    Function to find program info though a list of exercise from one or more users
+
+    Parameters
+    ----------
+    List of exercise
+
+    Returns
+    -------
+    num_excercises: Total number of exercises in a list of exercises
+    num_group: Total number of unique groups in a list of exercises
+    total_program_string: String with total estimated time to complete all exercises in a list of exercises
+    """
+
     group_set = set()
     total_time_estimation = 0
     exercise_time_estimation = 0
@@ -39,6 +54,19 @@ def list_info(exercise_list):
 
 
 def get_groups_list(exercise_list):
+    """Return a list of unique groups in a list of exerciser.
+
+    Function to find the name of unique groups in a list of exercises
+
+    Parameters
+    ----------
+    List of exercise
+
+    Returns
+    -------
+    group_set: List of unique group names in a list of exercises
+    """
+
     group_set = set()
 
     for exercise in exercise_list:
