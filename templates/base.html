@@ -17,7 +17,7 @@
 
     <!-- Jquery -->
 
-    <title>Fitness Exercise Development</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -26,25 +26,19 @@
         <!-- Navigation - Materialize CSS Template-->
         <nav class="nav-extended">
             <div class="nav-wrapper">
-                <a href="{{ url_for('programs_list', username=session['user']) }}" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg"
+                <a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg"
                         alt="Fitnes Exercise Development Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 {% if session.user %}
                 <ul class="left hide-on-med-and-down">
+                    <li><a href="{{ url_for('home', username=session['user']) }}">Home</a></li>
                     <li><a href="{{ url_for('programs_list', username=session['user']) }}">Programs</a></li>
                     <li><a href="{{ url_for('editor', username=session['user']) }}">Editor</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+                    <li><a href="{{ url_for('search') }}">Search</a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     {% if session.user|lower == "admin"|lower %}
-                    <li>
-                        <form class="search-form" method="POST" action="{{ url_for('search') }}">
-                            <div class="search-bg">
-                                <input type="text" name="query" id="query" minlength="3" required>
-                                <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
-                            </div>
-                        </form>
-                    </li>
                     <li><a href="{{ url_for('status') }}">App Status</a></li>
                     {% endif %}
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -55,23 +49,17 @@
 
         {% if session.user %}
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{{ url_for('programs_list', username=session['user']) }}" class="brand-logo center"><img class="nav-logo logo-mobile"
+            <li><a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img class="nav-logo logo-mobile"
                         src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a></li>
+            <li><a href="{{ url_for('home', username=session['user']) }}"><i class="fas fa-dumbbell"></i>Home</a></li>
             <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i
                         class="far fa-file-alt"></i>Programs</a></li>
             <li><a href="{{ url_for('editor', username=session['user']) }}"><i class="fas fa-pen"></i>Editor</a></li>
             <li><a href="{{ url_for('profile', username=session['user']) }}"><i class="far fa-id-badge"></i>Profile</a>
             </li>
+            <li><a href="{{ url_for('search') }}"><i class="fas fa-search"></i>Search</a></li>
             {% if session.user|lower == "admin"|lower %}
-            <li>
-                <form class="search-form" method="POST" action="{{ url_for('search') }}">
-                    <div class="search-bg">
-                        <input type="text" name="query" id="query" minlength="3" required>
-                        <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
-                    </div>
-                </form>
-            </li>
-            <li><a href="{{ url_for('status') }}">App Status</a></li>
+            <li><a href="{{ url_for('status') }}"><i class="far fa-chart-bar"></i>App Status</a></li>
             {% endif %}
             <li><a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i></i>Logout</a></li>
         </ul>

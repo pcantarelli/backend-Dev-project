@@ -21,13 +21,6 @@ mongo = PyMongo(app)
 # FIX
 @app.route("/")
 def index():
-
-    # if session["email"]:
-    #    user_found = mongo.db.users.find_one({"email": session["email"]})
-    #    username = user_found[username]
-    #    flash("Hey {}, welcome back!".format(user_found[username]))
-    #    return redirect(url_for("programs_list", username=session["user"]))
-
     return render_template("index.html")
 
 # TEST
@@ -124,6 +117,14 @@ def register():
         flash("Registration Error!")
         return render_template("index.html")
 
+
+@app.route("/home")
+def home():
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    if username:
+        return render_template("home.html", username=username )
+
+    return redirect(url_for("/"))
 
 @app.route("/programs_list/<username>", methods=["GET", "POST"])
 def programs_list(username):
@@ -263,17 +264,44 @@ def status():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
-    print("query:")
-    print(query)
-    print(" ")
+    if request.method == "POST":
+        query = request.form.get("query")
+        print("query:")
+        print(query)
+        print(" ")
 
-    exercises_list = list(mongo.db.exercises.find({"$text": {"$search": query}}))
-    print("exercises_list:")
-    print(exercises_list)
-    groups_list = get_groups_list(exercises_list)
+        exercises_list = list(mongo.db.exercises.find({"$text": {"$search": query}}))
+        print("exercises_list:")
+        print(exercises_list)
+        groups_list = get_groups_list(exercises_list)
 
-    return render_template("search_results.html", exercises_list=exercises_list, groups_list=groups_list, query=query)
+        if exercises_list:
+            return render_template("search.html", exercises_list=exercises_list, groups_list=groups_list, query=query)
+        else:
+            return render_template("search.html", no_results=True, query=query)
+    
+    return render_template("search.html")
+
+
+#Haddling errors
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(403)
+def page_forbidden(e):
+    return render_template('403.html'), 403
+
+
+@app.errorhandler(410)
+def page_gone(e):
+    return render_template('410.html'), 410
+
+
+@app.errorhandler(500)
+def page_server_error(e):
+    return render_template('500.html'), 500
 
 
 if __name__ == "__main__":

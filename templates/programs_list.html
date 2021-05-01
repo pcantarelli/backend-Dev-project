@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% block title %}Program - Fitness Exercise Development{% endblock %}
 {% block content %}
 
-<h3>Welcome {{username.capitalize() }}</h3>
-
 {% if exercises_list|length > 0 %}
-<h6>The estimated duration of your program is {{ exercises_info.total_program_string }}. Have a good training!</h6>
+<div class="program-estimation">
+    <p>The estimated duration of your program is {{ exercises_info.total_program_string }}.</p>
+     <p>Have a good training!</p>
+    </div>
 
 <div class="exercise-list">
     {% for group in groups_list %}

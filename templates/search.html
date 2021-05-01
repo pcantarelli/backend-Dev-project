@@ -1,5 +1,76 @@
 {% extends "base.html" %}
+{% block title %}Search - Fitness Exercise Development{% endblock %}
 {% block content %}
 
+{% if exercises_list|length > 0 %}
+
+<h1>Search</h1>
+
+<form class="search-form" method="POST" action="{{ url_for('search') }}">
+    <div class="search-bg">
+        <input type="text" name="query" id="query" minlength="3" required>
+        <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>
+
+<h2>Search results for: {{ query }}</h2>
+
+<div class="exercise-list">
+    {% for group in groups_list %}
+    <div class="group-list">
+
+        <h5 class="group-name">{{group}}</h5>
+
+        <ul class="collapsible">
+
+            {% for exercise in exercises_list %}
+            {% if exercise.group_name ==  group %}
+            <li>
+                <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}<i
+                        class="fas fa-chevron-circle-down"></i></div>
+                <div class="collapsible-body">
+                    <div class="exercise-info">
+                        <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
+                    </div>
+                    <div class="exercise-info">
+                        <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
+                    </div>
+                    <div class="exercise-info">
+                        <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
+                    </div>
+                    <div class="exercise-info">
+                        <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
+                    </div>
+                    {% if exercise.note %}
+                    <div class="exercise-info">
+                        <div class="info-name">Note: </div>{{ exercise.note }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+
+<h1>Search</h1>
+
+{% if no_results %}
+<h2>No search results for: {{ query }}</h2>
+{% else %}
+<h2>No ideas to create to create your own exercises? Search for a muscle group or exercecise name to find some exercises
+    cards and add them to your own program</h2>
+{% endif %}
+
+<form class="search-form" method="POST" action="{{ url_for('search') }}">
+    <div class="search-bg">
+        <input type="text" name="query" id="query" minlength="3" required>
+        <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>
+{% endif %}
 
 {% endblock %}

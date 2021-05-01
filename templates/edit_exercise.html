@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% block title %}Edit Exercise - Fitness Exercise Development{% endblock %}
 {% block content %}
 
-<h3>Edit Exercise</h3>
+<h1>Edit Exercise</h1>
 
     <form class="add-excerise__form" method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise._id) }}">
         <div class="add-group">

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Welcome {{username.capitalize() }}</h1>
+
+<div class="home-cards">
+    <div class="card-button">
+        <a href="{{ url_for('programs_list', username=session['user']) }}">
+            <i class="far fa-file-alt"></i>
+            <p>Access your program</p>
+        </a>
+    </div>
+    <div class="card-button">
+        <a href="{{ url_for('editor', username=session['user']) }}">
+            <i class="fas fa-pen"></i>
+            <p>Open program Editor</p>
+        </a>
+    </div>
+    <div class="card-button">
+        <a href="{{ url_for('programs_list', username=session['user']) }}">
+            <i class="far fa-id-badge"></i>
+            <p>Go to your Profile</p>
+        </a>
+    </div>
+    <div class="card-button">
+        <a href="{{ url_for('search')}}">
+            <i class="fas fa-search"></i>
+            <p>Search for exercises</p>
+        </a>
+    </div>
+    {% if session.user|lower == "admin"|lower %}
+    <div class="card-button">
+        <a href="{{ url_for('status')}}">
+            <i class="far fa-chart-bar"></i>
+            <p>App status</p>
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
