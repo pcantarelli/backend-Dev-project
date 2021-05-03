@@ -31,7 +31,7 @@
         </a>
     </div>
     {% if session.user|lower == "admin"|lower %}
-    <div class="card-button">
+    <div class="card-button app-status">
         <a href="{{ url_for('status')}}">
             <i class="far fa-chart-bar"></i>
             <p>App status</p>

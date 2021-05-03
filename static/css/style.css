@@ -1,20 +1,19 @@
 /* Variables */
 :root {
-    --flickr-pink: #f72585ff;
-    --byzantine: #b5179eff;
-    --purple: #7209b7ff;
+    --flickr-pink: #f72585;
+    --byzantine: #b5179e;
+    --purple: #7209b7;
     --purple-2: #560bad;
-    --trypan-blue: #480ca8ff;
-    --trypan-blue-2: #3a0ca3ff;
-    --persian-blue: #3f37c9ff;
-    --ultramarine-blue: #4361eeff;
-    --dodger-blue: #4895efff;
-    --vivid-sky-blue: #4cc9f0ff;
+    --trypan-blue: #480ca8;
+    --trypan-blue-2: #3a0ca3;
+    --persian-blue: #3f37c9;
+    --ultramarine-blue: #4361ee;
+    --dodger-blue: #4895ef;
+    --vivid-sky-blue: #4cc9f0;
     --white: #ffffff;
     --black: #000;
     --dark-grey: #201f21;
     --orange: #f5ab35;
-    --test: #6137C3;
     --light-grey: #D4D4D4;
 }
 
@@ -325,7 +324,7 @@ footer {
     align-items: center;
 }
 
-.card-button:last-child {
+.app-status {
     width: 100%;
 }
 
