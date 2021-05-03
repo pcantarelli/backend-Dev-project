@@ -1,3 +1,4 @@
+<!-- App Status page -->
 {% extends "base.html" %}
 {% block title %}App Status - Fitness Exercise Development{% endblock %}
 {% block content %}
@@ -5,16 +6,13 @@
 <h1>Application Status</h1>
 
 <div class="status-info">
-
     <h4>Users: <span>{{ user_total }}</span></h4>
-
     <div class="status-flex">
         <h5>Exercises: <span>{{ exercises_total }}</span></h5>
         <h5>Average exercise per user: <span>{{ (exercises_total / user_total) | round(1, 'floor') }}</span></h5>
         <h5>Groups: <span>{{ groups_list|length }}</span></h5>
         <h5>Average groups per user: <span>{{ (groups_list|length / user_total) | round(1, 'floor') }}</span></h5>
     </div>
-
     <h5>Groups list:</h5>
     <ul>
         {% for group in groups_list %}
@@ -22,6 +20,4 @@
         {% endfor %}
     </ul>
 </div>
-
-
 {% endblock %}

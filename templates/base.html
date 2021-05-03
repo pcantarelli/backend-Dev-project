@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
@@ -14,20 +13,17 @@
         crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 
-
-    <!-- Jquery -->
-
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
-
+    <!-- Header -->
     <header>
         <!-- Navigation - Materialize CSS Template-->
         <nav class="nav-extended">
             <div class="nav-wrapper">
-                <a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img class="nav-logo" src="/static/images/logo_white.svg"
-                        alt="Fitnes Exercise Development Logo"></a>
+                <a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img
+                        class="nav-logo" src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 {% if session.user %}
                 <ul class="left hide-on-med-and-down">
@@ -49,8 +45,9 @@
 
         {% if session.user %}
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img class="nav-logo logo-mobile"
-                        src="/static/images/logo_white.svg" alt="Fitnes Exercise Development Logo"></a></li>
+            <li><a href="{{ url_for('home', username=session['user']) }}" class="brand-logo center"><img
+                        class="nav-logo logo-mobile" src="/static/images/logo_white.svg"
+                        alt="Fitnes Exercise Development Logo"></a></li>
             <li><a href="{{ url_for('home', username=session['user']) }}"><i class="fas fa-dumbbell"></i>Home</a></li>
             <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i
                         class="far fa-file-alt"></i>Programs</a></li>
@@ -64,16 +61,15 @@
             <li><a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i></i>Logout</a></li>
         </ul>
         {% endif %}
-
     </header>
-    <!-- Alert message -->
 
-    <!-- Content -->
+    <!-- Page content -->
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-items">
             <div class="footer-info">
@@ -96,8 +92,7 @@
         crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-    <!-- Flash messages -->
-
+    <!-- Alert Flash messages -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
@@ -110,8 +105,6 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-
-
 </body>
 
 </html>

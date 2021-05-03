@@ -1,3 +1,4 @@
+<!-- Index page -->
 {% extends "base.html" %}
 {% block title %}Fitness Exercise Development{% endblock %}
 {% block content %}
@@ -15,6 +16,7 @@
             <h5>Have an account?</h5>
             <button class="btn btn-account">Sign in</button>
         </div>
+        <!-- Login form -->
         <div class="forms">
             <div class="form-login {% if error_register %} hidden-form {% endif %}">
                 <h5>Log In</h5>
@@ -47,6 +49,7 @@
                 </div>
                 {% endif %}
             </div>
+            <!-- Register form -->
             <div class="form-register {% if error_register is defined %} {% else %} hidden-form {% endif %} ">
                 <h5>Register</h5>
                 <div class="row form-margin">

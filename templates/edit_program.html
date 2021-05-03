@@ -1,68 +1,68 @@
+<!-- Editor page -->
 {% extends "base.html" %}
 {% block title %}Edit Program - Fitness Exercise Development{% endblock %}
 {% block content %}
 
 <h1>Program Editor</h1>
 
+<!-- Add exercises button -->
 <div class="editor-controls">
     <a href="{{ url_for('add_exercise', username=session['user']) }}" class="btn">Add Exercise +</a>
 </div>
 
-
 {% if exercises_list|length > 0 %}
-<div class="exercise-list">
-    {% for group in groups_list %}
-    <div class="group-list">
+    <!-- Program exercise list -->
+    <div class="exercise-list">
+        {% for group in groups_list %}
+        <div class="group-list">
 
-        <h5 class="group-name">{{group}}</h5>
+            <h5 class="group-name">{{group}}</h5>
 
-        <ul class="collapsible">
+            <ul class="collapsible">
 
-            {% for exercise in exercises_list %}
-            {% if exercise.group_name ==  group %}
-            <li>
-                <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}
-                    <div>
-                        <a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}" class="btn btn-editor ">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        <a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}" class="btn btn-editor edit">
-                            Edit
-                        </a>
-                        <i class="fas fa-chevron-circle-down"></i>
+                {% for exercise in exercises_list %}
+                {% if exercise.group_name ==  group %}
+                <li>
+                    <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}
+                        <div>
+                            <a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}" class="btn btn-editor ">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}" class="btn btn-editor edit">
+                                Edit
+                            </a>
+                            <i class="fas fa-chevron-circle-down"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="collapsible-body">
-                    <div class="exercise-info">
-                        <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
+                    <div class="collapsible-body">
+                        <div class="exercise-info">
+                            <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
+                        </div>
+                        <div class="exercise-info">
+                            <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
+                        </div>
+                        <div class="exercise-info">
+                            <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
+                        </div>
+                        <div class="exercise-info">
+                            <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
+                        </div>
+                        {% if exercise.note %}
+                        <div class="exercise-info">
+                            <div class="info-name">Note: </div>{{ exercise.note }}</span>
+                        </div>
+                        {% endif %}
                     </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
-                    </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
-                    </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
-                    </div>
-                    {% if exercise.note %}
-                    <div class="exercise-info">
-                        <div class="info-name">Note: </div>{{ exercise.note }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-            </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 {% else %}
-<div class="no-exercises">
-    <h4 class="red-text center-align">No exercises found</h4>
-</div>
+    <div class="no-exercises">
+        <h4 class="red-text center-align">No exercises found</h4>
+    </div>
 {% endif %}
-
-
 {% endblock %}

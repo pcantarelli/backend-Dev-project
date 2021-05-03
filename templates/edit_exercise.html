@@ -1,40 +1,40 @@
+<!-- Edit exercise page -->
 {% extends "base.html" %}
 {% block title %}Edit Exercise - Fitness Exercise Development{% endblock %}
 {% block content %}
 
 <h1>Edit Exercise</h1>
-
-    <form class="add-excerise__form" method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise._id) }}">
-        <div class="add-group">
-            <label for="group_name">Group</label>
-            <input placeholder="Muscle group" type="text" name="group_name" id="group_name" minlength="3"
-            maxlength="15" pattern="^[a-zA-Z0-9]{3,15}$" class="validate input-group" value="{{ exercise.group_name }}" required>
-        </div>
-        <div class="add-name">
-            <label for="exercise_name">Name</label>
-            <input placeholder="Exercise name here" type="text" name="exercise_name" id="exercise_name" minlength="3"
+<!-- Edit exercise form -->
+<form class="add-excerise__form" method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise._id) }}">
+    <div class="add-group">
+        <label for="group_name">Group</label>
+        <input placeholder="Muscle group" type="text" name="group_name" id="group_name" minlength="3" maxlength="15"
+            pattern="^[a-zA-Z0-9]{3,15}$" class="validate input-group" value="{{ exercise.group_name }}" required>
+    </div>
+    <div class="add-name">
+        <label for="exercise_name">Name</label>
+        <input placeholder="Exercise name here" type="text" name="exercise_name" id="exercise_name" minlength="3"
             maxlength="15" class="validate" value="{{ exercise.exercise_name }}" required>
-        </div>
-        <div class="add-info">
-            <input placeholder="add weight in kg" type="text" name="weight" id="weight" minlength="1" maxlength="6"
-            pattern="^[0-9]{1,2}([,.][0-9]{1,2})?$" class="validate"  value="{{ exercise.weight }}" required>
-            <label for="weight" class="weight-label">weight:</label>
-            <input placeholder="number of repetitions" type="text" name="reps" id="reps" minlength="1" maxlength="6"
+    </div>
+    <div class="add-info">
+        <input placeholder="add weight in kg" type="text" name="weight" id="weight" minlength="1" maxlength="6"
+            pattern="^[0-9]{1,2}([,.][0-9]{1,2})?$" class="validate" value="{{ exercise.weight }}" required>
+        <label for="weight" class="weight-label">weight:</label>
+        <input placeholder="number of repetitions" type="text" name="reps" id="reps" minlength="1" maxlength="6"
             pattern="^[0-9]*$" class="validate" value="{{ exercise.reps }}" required>
-            <label for="reps">reps:</label>
-            <input placeholder="number of series" type="text" name="series" id="series" minlength="1" maxlength="6"
+        <label for="reps">reps:</label>
+        <input placeholder="number of series" type="text" name="series" id="series" minlength="1" maxlength="6"
             pattern="^[0-9]*$" class="validate" value="{{ exercise.series }}" required>
-            <label for="series">series:</label>
-            <input placeholder="interval in seconds" type="text" name="time_interval" id="time_interval" minlength="1" maxlength="6"
-            pattern="^[0-9]*$" class="validate" value="{{ exercise.time_interval }}" required>
-            <label for="time_interval">interval:</label>
-            <textarea name="note" id="note" cols="30" rows="20" maxlength="500" value="{{ exercise.note }}"></textarea>
-            <label for="note" class="note-label">note:</label>
-        </div>
-        <div class="add-buttons">
-            <a href="{{ url_for('editor') }}" class="btn btn-cancel">Cancel</a>
-            <button class="btn btn-add">Save</button>
-        </div>
-    </form>
-
+        <label for="series">series:</label>
+        <input placeholder="interval in seconds" type="text" name="time_interval" id="time_interval" minlength="1"
+            maxlength="6" pattern="^[0-9]*$" class="validate" value="{{ exercise.time_interval }}" required>
+        <label for="time_interval">interval:</label>
+        <textarea name="note" id="note" cols="30" rows="20" maxlength="500" value="{{ exercise.note }}"></textarea>
+        <label for="note" class="note-label">note:</label>
+    </div>
+    <div class="add-buttons">
+        <a href="{{ url_for('editor') }}" class="btn btn-cancel">Cancel</a>
+        <button class="btn btn-add">Save</button>
+    </div>
+</form>
 {% endblock %}

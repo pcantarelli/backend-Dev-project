@@ -1,8 +1,10 @@
+<!-- Home page -->
 {% extends "base.html" %}
+{% block title %}Home - Fitness Exercise Development{% endblock %}
 {% block content %}
 
 <h1>Welcome {{username.capitalize() }}</h1>
-
+<!-- Home cards -->
 <div class="home-cards">
     <div class="card-button">
         <a href="{{ url_for('programs_list', username=session['user']) }}">
@@ -37,5 +39,4 @@
     </div>
     {% endif %}
 </div>
-
 {% endblock %}

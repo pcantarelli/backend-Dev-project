@@ -1,56 +1,53 @@
+<!-- Program  page -->
 {% extends "base.html" %}
 {% block title %}Program - Fitness Exercise Development{% endblock %}
 {% block content %}
 
 {% if exercises_list|length > 0 %}
-<div class="program-estimation">
-    <p>The estimated duration of your program is {{ exercises_info.total_program_string }}.</p>
-     <p>Have a good training!</p>
+    <div class="program-estimation">
+        <p>The estimated duration of your program is {{ exercises_info.total_program_string }}.</p>
+        <p>Have a good training!</p>
     </div>
-
-<div class="exercise-list">
-    {% for group in groups_list %}
-    <div class="group-list">
-
-        <h5 class="group-name">{{group}}</h5>
-
-        <ul class="collapsible">
-
-            {% for exercise in exercises_list %}
-            {% if exercise.group_name ==  group %}
-            <li>
-                <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}<i class="fas fa-chevron-circle-down"></i></div>
-                <div class="collapsible-body">
-                    <div class="exercise-info">
-                        <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
-                    </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
-                    </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
-                    </div>
-                    <div class="exercise-info">
-                        <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
-                    </div>
-                    {% if exercise.note %}
-                    <div class="exercise-info">
-                        <div class="info-name">Note: </div>{{ exercise.note }}</span>
-                    </div>
+    <!-- Program cards list -->
+    <div class="exercise-list">
+        {% for group in groups_list %}
+            <div class="group-list">
+                <h5 class="group-name">{{group}}</h5>
+                <ul class="collapsible">
+                    {% for exercise in exercises_list %}
+                    {% if exercise.group_name ==  group %}
+                    <li>
+                        <div class="collapsible-header z-depth-1">{{ exercise.exercise_name }}<i
+                                class="fas fa-chevron-circle-down"></i></div>
+                        <div class="collapsible-body">
+                            <div class="exercise-info">
+                                <div class="info-name">Weight: </div><span>{{ exercise.weight }}</span><span>kg</span>
+                            </div>
+                            <div class="exercise-info">
+                                <div class="info-name">Reps: </div>{{ exercise.reps }}</span>
+                            </div>
+                            <div class="exercise-info">
+                                <div class="info-name">Series: </div><span>{{ exercise.series }}</span>
+                            </div>
+                            <div class="exercise-info">
+                                <div class="info-name">Interval: </div><span>{{ exercise.time_interval }}</span><span>s</span>
+                            </div>
+                            {% if exercise.note %}
+                            <div class="exercise-info">
+                                <div class="info-name">Note: </div>{{ exercise.note }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </li>
                     {% endif %}
-                </div>
-            </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 {% else %}
-<div class="no-exercises">
-    <h4 class="red-text center-align">No exercises found</h4>
-</div>
+    <div class="no-exercises">
+        <h4 class="red-text center-align">No exercises found</h4>
+    </div>
 {% endif %}
-
-
 {% endblock %}
