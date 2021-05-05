@@ -28,7 +28,7 @@
                 {% if session.user %}
                 <ul class="left hide-on-med-and-down">
                     <li><a href="{{ url_for('home', username=session['user']) }}">Home</a></li>
-                    <li><a href="{{ url_for('programs_list', username=session['user']) }}">Programs</a></li>
+                    <li><a href="{{ url_for('programs_list', username=session['user']) }}">Program</a></li>
                     <li><a href="{{ url_for('editor', username=session['user']) }}">Editor</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                     <li><a href="{{ url_for('search') }}">Search</a></li>
@@ -50,7 +50,7 @@
                         alt="Fitnes Exercise Development Logo"></a></li>
             <li><a href="{{ url_for('home', username=session['user']) }}"><i class="fas fa-dumbbell"></i>Home</a></li>
             <li><a href="{{ url_for('programs_list', username=session['user']) }}"><i
-                        class="far fa-file-alt"></i>Programs</a></li>
+                        class="far fa-file-alt"></i>Program</a></li>
             <li><a href="{{ url_for('editor', username=session['user']) }}"><i class="fas fa-pen"></i>Editor</a></li>
             <li><a href="{{ url_for('profile', username=session['user']) }}"><i class="far fa-id-badge"></i>Profile</a>
             </li>

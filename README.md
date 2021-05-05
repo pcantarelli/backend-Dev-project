@@ -99,49 +99,65 @@ The color scheme aims to have a vibrant feeling that stands out and hype the use
 
 ![collor pallet](static/images/color_scheme.png)
 
-##CONTNUAR DAQUI
+The icons used  in the website are from [Font Awesome](https://fontawesome.com/) and were used in the project logo and as visual reference for the each page.
 
-The typography used aimed to have complimentry fonts, that are similar but distinct enouch to create some contrast. The fonts used are the **Libre Franklin** and **Khula** imported from Google Fonts, and in case they can't be loaded, the fall back is Sans Serif as it will always be loaded correctly.
+All pages can be easily accesed though the cards in the Home page or through the application navagiation menu, which in the mobile view is diplayed through a hambuger icon and side menu for the best usage of space.
 
-The images used are from [Delesign](delesign.com) and were customized to fit the project color scheme and design. They are used as visual reference for the seach pages, and have modern look and feel.
+In the Program page and Editor it was used collapsibles accordions to don't polute the page information, and display only the information the user really wants to see. The Search page is provided for user find exercises inspirations and a button to easily copy th card information to your own Program. Lastely, the profile page show the user info registered as well as their info status.
 
-The project layout are stategicly simple, to maintaind the user focus on the experience the website wants to provide. All pages can be easly accesses by a common Header Navigation menu on all pages, and it was decided that there was no need for a Footer at the moment.
-
-The homepage have to cards that stands out to inform the user how the website can be used, and have attractive call to action button. The search pages aims to provide a good user experiences and display the information searched in a simple and direct format.
-
-In the Search map page uses the Open BreweryDB API to find all breweries lagtuded and logitude in the area searched, and the Google Maps API is used to display the breweries found on that location though some Pins added to the Map.
-
-The Search info pages uses the Open BreweryDB API to retrive the breweries information found that matches with the term serched. Than a javascrip code is used to insert that information through cards in this page.
+The Admin user have access to the App Status page, where he can verify some information from this application project, which can be used for future project upgrades.
 
 
 ## **Features**
 
-All project features can be accessed at any time throfh the Header Navigation menu that is commom to all pages.
+Thouugh the Header Navigation menu that is commom to all pagesm the user can access all project features that are displayed on diferent pages.
 
 ### **Consistent features across all pages:**
 
-* A header with the website logo and name, with a responsive navigation menu that on depenging on the screen size can shriks to be displayed through a hamburger menu.
+* Header section with a responsive menu and logo. The menu can be accessed only by users that logged in the application.
+* Footer section with project information and social logo.
+
 
 ### **Home:**
 
-* Two cards that informs what can be done in the website, and attract the user attention to its call to action button, so the main project pages are accessed.
+* Four cards where the user can access any of the applications features (Program list, Program Editor, User profile and Search functionality).
+* The Admin user can see a fifth card to access the App Status page.
 
-### **Search Map:**
+### **Index:**
 
-* A large title is displayed to suggest the user to search a location, letting clear that **needs to be in the United States**.
-* The input field informs though a place holder where the search term needs to be inserted, and clear that it **needs to be a city**.
-* A map where the breweries location information found using the search term are displayed thought Pins.
+* Index page shows a responsive and animated card where user can select either to register in the application, or to log in. 
 
-### **Brewery info:**
+### **Programa:**
 
-* A large title is displayed to suggest the user to search a brewery and know more about it.
-* The input field informs though a place holder that the search names **needs to be a brewery name**.
-* It is alos displayed a card informing that any part of the brewery name can be searched, and that some brewery information can be not found (that's is a known limitation of the Open BreweryDB API, and as a result a limitation of this project at the moment)
-* All the inforation retrived on the Open BreweryDB API using the searched term are displayed on cards.
+* On this page user can see all their execerices registred in the application, separeted by muscle group. The exercises cards are presend in a collapsible accordion. At the top is displayed an estimated time to complete the whole program.
 
-### **Contact us:**
+### **Editor:**
 
-* A form is provided where the used basic information (Name and Email) are collected, letting possible to easily send a message to the website manager. By using the EmailJS API, this messaged is sent the website manager.
+* On the Editor page the user can add a new exercise to their program thorugh a buttton that links to the Add Exercise page. It is also presented their current exerceises card similarly to the Program page, but with two extra buttons to Edit or Delete an exercise.
+
+### **Add Exercise:**
+
+* This page displays a form where the user can add a new exercise to their program. The form is presented with the same card layout from the Program page, so the user can have a better undertand on how the information will be displayed after saved. There is a button to Cancel the creation a new exercise and a button to Save it.
+
+### **Edit Exercise:**
+
+* This page displays the same form and feature of the Add Exercise page, but with the exercise information registred previously by the user that he wants to change.
+
+### **Profile:**
+
+* This page show the user information added through the Register form
+* It is also displayed some application status from the specifc used logged.
+
+### **Search:**
+
+* The Search page shows a search box input and a brief exaplanation how the user can use this this page.
+* Upon searching a word, the page shows the search result with the same layout used on the Program page, where the cards displayed contatin the search query word. To test it, you can seach for "Shoulder" or "Legs"
+
+### **App Status:**
+
+* On this page the Admin can see some applications stauts information, such as: quantity of user registred, quantity of exercises registred, etc.
+
+###CONTINUAR daqui
 
 ### **Features I could implement in the future:**
 
