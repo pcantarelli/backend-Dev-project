@@ -22,10 +22,14 @@ $('.btn-create').on("click", () => {
     $('.slider-forms').addClass("slide-active");
     $('.form-register').removeClass("hidden-form");
     $('.form-login').addClass("hidden-form");
+    $('.left-area').addClass("mobile-hidden");
+    $('.right-area').removeClass("mobile-hidden");
 });
 
 $('.btn-account').on("click", () => {
     $('.slider-forms').removeClass("slide-active");
     $('.form-register').addClass("hidden-form");
     $('.form-login').removeClass("hidden-form");
+    $('.right-area').addClass("mobile-hidden");
+    $('.left-area').removeClass("mobile-hidden");
 });

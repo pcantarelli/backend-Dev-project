@@ -227,7 +227,7 @@ footer {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 40px 0;
+    padding: 40px 10px;
     color: var(--black);
 }
 
@@ -235,6 +235,7 @@ footer {
 .right-area h5 {
     color: var(--white);
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .forms {
@@ -747,6 +748,10 @@ li:last-child>.collapsible-header {
         font-size: 1.4rem;
     }
 
+    .btn {
+        font-size: 14px;
+    }
+
     /* Index */
     .main-card {
         margin-top: 30px;
@@ -790,6 +795,10 @@ li:last-child>.collapsible-header {
 
     .slide-active .forms {
         right: auto;
+    }
+
+    .mobile-hidden {
+        visibility: hidden;
     }
 }
 
