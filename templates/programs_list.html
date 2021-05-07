@@ -46,8 +46,11 @@
         {% endfor %}
     </div>
 {% else %}
-    <div class="no-exercises">
-        <h4 class="red-text center-align">No exercises found</h4>
+    <div class="no-exercises center-align">
+        <h4 class="red-text">No exercises found</h4>
+        <div class="editor-controls">
+            <a href="{{ url_for('add_exercise', username=session['user']) }}" class="btn">Add Exercise +</a>
+        </div>
     </div>
 {% endif %}
 {% endblock %}
