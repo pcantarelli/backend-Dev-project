@@ -215,7 +215,7 @@ Due to the current simplicity of this project, it was decided to use a NoSQL Dat
 
 ### **Manual testing**
 
-- CRUD functionalities tested:
+- CRUD functionalities tested on Program, Editor, Add and Edit Exercises pages:
   - Add Exercise button
   - Add Exercise form
   - Edit Exercise button
@@ -229,6 +229,8 @@ Due to the current simplicity of this project, it was decided to use a NoSQL Dat
 - Tested error pages
 - Tested access to the App Status page only for Admin user
 - Tested on all input fields forms to accept only characters acceptable by the code pattern
+- Tested Search page looking for "Triceps", "Squal", "Biceps" and adding the found exercises cards to my own program
+- Tested Profile page comparing information loaded with Database information
 
 ### **Validating The Code:**
 
