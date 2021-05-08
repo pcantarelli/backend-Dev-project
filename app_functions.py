@@ -1,7 +1,8 @@
 def list_info(exercise_list):
     """Find user program info.
 
-    Function to find program info though a list of exercise from one or more users
+    Function to find program info though a list of exercise from one or more
+    users
 
     Parameters
     ----------
@@ -11,14 +12,15 @@ def list_info(exercise_list):
     -------
     num_excercises: Total number of exercises in a list of exercises
     num_group: Total number of unique groups in a list of exercises
-    total_program_string: String with total estimated time to complete all exercises in a list of exercises
+    total_program_string: String with total estimated time to complete all
+    exercises in a list of exercises
     """
 
     group_set = set()
     total_time_estimation = 0
     exercise_time_estimation = 0
     rep_time_estimation = 3
-    reps = 0 
+    reps = 0
     series = 0
     time_interval = 0
     numExcercises = len(exercise_list)
@@ -33,7 +35,8 @@ def list_info(exercise_list):
                 series = int(v)
             elif k == 'time_interval':
                 time_interval = int(v)
-        exercise_time_estimation = (((reps * rep_time_estimation) + time_interval) * series)
+        exercise_time_estimation = (
+            ((reps * rep_time_estimation) + time_interval) * series)
         total_time_estimation += exercise_time_estimation
         exercise_time_estimation = 0
 
@@ -47,9 +50,9 @@ def list_info(exercise_list):
         total_program_string = f" {(total_time_estimation // 60)} minutes"
 
     return {
-        'num_excercises': num_excercises, 
-        'num_group': num_group, 
-        'total_program_string': total_program_string, 
+        'num_excercises': num_excercises,
+        'num_group': num_group,
+        'total_program_string': total_program_string,
     }
 
 

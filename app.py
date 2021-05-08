@@ -20,6 +20,8 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 # Route to the index page
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -32,15 +34,18 @@ def index():
 def login():
     if request.method == "POST":
         # Check if email exists in user db
-        user_found = mongo.db.users.find_one({"email": request.form.get("email")})
+        user_found = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
         if user_found:
             # Check password hashed
-            if check_password_hash(user_found["password"], request.form.get("password")):
+            if check_password_hash(
+                    user_found["password"], request.form.get("password")):
                 print("password matches")
                 print("username found: " + user_found["username"])
                 session["user"] = user_found["username"]
                 print(session["user"])
-                flash("Hey {}, welcome back!".format(user_found["username"].capitalize()))
+                flash("Hey {}, welcome back!".format(
+                    user_found["username"].capitalize()))
                 return redirect(url_for("home", username=session["user"]))
             else:
                 # Password incorrect
@@ -69,11 +74,12 @@ def register():
         form_name = request.form.get("username")
 
         # Verify if email already exists
-        email_found = mongo.db.users.find_one({"email": request.form.get("email").lower()})
+        email_found = mongo.db.users.find_one(
+            {"email": request.form.get("email").lower()})
         if email_found:
             error_register = "Email already used!"
             return render_template("index.html", error_register=error_register)
-        
+
         # Verify if name already exists
         name_found = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
@@ -103,9 +109,10 @@ def register():
 # On failure redirects to index page
 @app.route("/home")
 def home():
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
     if username:
-        return render_template("home.html", username=username )
+        return render_template("home.html", username=username)
 
     return redirect(url_for("/"))
 
@@ -114,14 +121,21 @@ def home():
 # On failure redirects to index page
 @app.route("/programs_list/<username>", methods=["GET", "POST"])
 def programs_list(username):
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    exercises_list = list(mongo.db.exercises.find(
+        {"created_by": session["user"]}))
     exercises_info = list_info(exercises_list)
     groups_list = get_groups_list(exercises_list)
 
     if username:
         # Render list of program cards
-        return render_template("programs_list.html", username=username, exercises_list=exercises_list, exercises_info=exercises_info, groups_list=groups_list )
+        return render_template(
+                "programs_list.html",
+                username=username,
+                exercises_list=exercises_list,
+                exercises_info=exercises_info,
+                groups_list=groups_list)
 
     return redirect(url_for("/"))
 
@@ -130,14 +144,21 @@ def programs_list(username):
 # On failure redirects to index page
 @app.route("/edit_program")
 def editor():
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    exercises_list = list(mongo.db.exercises.find(
+        {"created_by": session["user"]}))
     exercises_info = list_info(exercises_list)
     groups_list = get_groups_list(exercises_list)
-    
+
     if username:
         # Render list of program cards
-        return render_template("edit_program.html", username=username, exercises_list=exercises_list, exercises_info=exercises_info, groups_list=groups_list )
+        return render_template(
+            "edit_program.html",
+            username=username,
+            exercises_list=exercises_list,
+            exercises_info=exercises_info,
+            groups_list=groups_list)
 
     return redirect(url_for("/"))
 
@@ -145,7 +166,8 @@ def editor():
 # Route to Add Exercise page and add exercise to db
 @app.route("/add_exercise", methods=["GET", "POST"])
 def add_exercise():
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
 
     if request.method == "POST":
         exercise = {
@@ -177,7 +199,8 @@ def delete_exercise(exercise_id):
 # Route to Edit Exercise page and edit exercise on db
 @app.route("/edit_exercise/<exercise_id>", methods=["GET", "POST"])
 def edit_exercise(exercise_id):
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
 
     if request.method == "POST":
         exercise_updated = {
@@ -190,7 +213,8 @@ def edit_exercise(exercise_id):
             "created_by": username,
             "note": request.form.get("note")
         }
-        mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, exercise_updated)
+        mongo.db.exercises.update(
+            {"_id": ObjectId(exercise_id)}, exercise_updated)
         flash("Exercise Updated")
         return redirect(url_for("editor"))
 
@@ -206,13 +230,19 @@ def logout():
     return redirect(url_for("index"))
 
 # Route to Profile page
+
+
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     user_data = mongo.db.users.find_one({"username": session["user"]})
-    exercises_list = list(mongo.db.exercises.find({"created_by": session["user"]}))
+    exercises_list = list(mongo.db.exercises.find(
+        {"created_by": session["user"]}))
     exercises_info = list_info(exercises_list)
-    
-    return render_template("profile.html", user=user_data, exercises_info=exercises_info)
+
+    return render_template(
+        "profile.html",
+        user=user_data,
+        exercises_info=exercises_info)
 
 
 # Route to Status page
@@ -224,7 +254,11 @@ def status():
     groups_list = get_groups_list(exercises_list)
     user_total = len(user_list)
 
-    return render_template("status.html", user_total=user_total, exercises_total=exercises_total, groups_list=groups_list)
+    return render_template(
+        "status.html",
+        user_total=user_total,
+        exercises_total=exercises_total,
+        groups_list=groups_list)
 
 
 # Route to Search page and search query on DB
@@ -232,21 +266,27 @@ def status():
 def search():
     if request.method == "POST":
         query = request.form.get("query")
-        exercises_list = list(mongo.db.exercises.find({"$text": {"$search": query}}))
+        exercises_list = list(mongo.db.exercises.find(
+            {"$text": {"$search": query}}))
         groups_list = get_groups_list(exercises_list)
 
         if exercises_list:
-            return render_template("search.html", exercises_list=exercises_list, groups_list=groups_list, query=query)
+            return render_template(
+                "search.html",
+                exercises_list=exercises_list,
+                groups_list=groups_list,
+                query=query)
         else:
             return render_template("search.html", no_results=True, query=query)
-    
+
     return render_template("search.html")
 
 
 # Route to copy an exercise from Search page
 @app.route("/copy_exercise/<exercise_id>", methods=["GET", "POST"])
 def copy_exercise(exercise_id):
-    exercise_found = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    exercise_found = mongo.db.exercises.find_one(
+        {"_id": ObjectId(exercise_id)})
     username = session["user"]
     exercise_found["created_by"] = username
     exercise_found.pop('_id', None)
@@ -256,7 +296,7 @@ def copy_exercise(exercise_id):
     return redirect(url_for("programs_list", username=username))
 
 
-#Error Handlers
+# Error Handlers
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -279,6 +319,5 @@ def page_server_error(e):
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-    port=int(os.environ.get("PORT")),
-    debug=False)
-
+            port=int(os.environ.get("PORT")),
+            debug=True)

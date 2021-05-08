@@ -71,8 +71,8 @@ body {
     cursor: pointer;
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgb(255 255 255 / 61%);
     height: 40px;
     border-radius: 20px;
@@ -107,8 +107,8 @@ nav {
 .sidenav {
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.10);
     display: flex;
     flex-direction: column;
@@ -314,8 +314,8 @@ footer {
     cursor: pointer;
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgb(255 255 255 / 61%);
     border-radius: 20px;
     margin: 1rem;
@@ -424,8 +424,8 @@ li:last-child>.collapsible-header {
 .collapsible-body {
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.10);
     color: var(--white);
     font-weight: 200;
@@ -501,8 +501,8 @@ li:last-child>.collapsible-header {
 .add-info {
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.10);
     color: var(--white);
     font-weight: 200;
@@ -531,8 +531,8 @@ li:last-child>.collapsible-header {
     display: block;
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: none;
     color: var(--white);
 }
@@ -624,8 +624,8 @@ li:last-child>.collapsible-header {
     color: var(--white);
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.10);
     width: 100%;
     max-width: 320px;
@@ -706,8 +706,8 @@ li:last-child>.collapsible-header {
     color: var(--white);
     background: rgb(255 245 245 / 10%);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(20.0px);
-    -webkit-backdrop-filter: blur(20.0px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.10);
     width: 100%;
     max-width: 320px;
